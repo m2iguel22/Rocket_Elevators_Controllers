@@ -1,0 +1,58 @@
+Modelisation 
+- Colonne 
+- Ascensseur
+- Bouton interieur/ bouton exterieur 
+- Porte
+
+
+SEQUENCE Column USING ... Number_Of_Elevators
+
+INIT Column FloorList TO EMPTY List 
+  FOR EACH 9 IN Number_Of_Elevators
+    ADD Elevator WITH ElevatorNumber TO ElevatorList
+
+
+
+
+Function(Sequence)
+Object(Find button, Floor?, Direction?, Open and close doors) 
+
+
+-Colonne = 1 
+-Elevators = 2 (Elevator A and Elevator B) 
+-Inside buttons = (2 pannels)
+-1 Pannels = 10 buttons(Floors) 2 buttons(Open and Close) 1 (Emergency Call) 1 (Emergency stop)
+-Outside buttons = 2 buttons(floors 2 to 9) 1 buttons ( going down at floors 10) 1 buttons ( going top to floors 1 (RC))
+
+Find button = Where is the button called(top or bottom)
+Floors = The button is called at the floor ....?
+Direction = the button is called at the floors 8 and he want to go down or top 
+Elevator called = Elevator in movement with the same direction
+
+   If they have no elevator in movement take the closest elevator and set this elevator to the direction of the button calls
+   
+   else if the elevator are in movement but not at the same direction return to line 22 
+   
+    else if the elevator A and B are at the same distance of button calls take elevator A 
+    
+    
+ Elevator choosed 
+ 
+ At the distination door open and call the direction they go  
+ When door is open stay open 7 seconds 
+  
+  If someone clic on the button outside the elevator choosed or enter in the elevator choosed (set time to 5 seconds)
+   
+   Else if the elevator have no bottom clic inside stay at this floor
+   
+   
+   
+   
+ 
+  
+
+
+ 
+
+
+
