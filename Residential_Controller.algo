@@ -1,0 +1,184 @@
+One Colunm (Floors 1-10)
+Elevators = 2
+(Elevator 1, Elevator 2)
+
+PropretyOfElevators
+
+-ElevatorDirection = UP and DOWN
+-ElevatorStatus = Idle, Moving, Stoped
+-ElevatorDoors = Opened or CLoosed
+-ELevatorCurrentFloor = Position of floor
+
+Buttons (Button inside and outside)
+
+-Outside button = Up or Down 
+-Inside Button = Request Floor, Closed or Opened Door, Emergency Call 
+
+ // - Witch Elevator are Available //
+           - Available = True or False 
+           - Full = Return to Availlaible 
+           - ElevatorCurrentFloor 
+           - ClosestElevator 
+           - RequestFloorButton
+           = BestElevator
+           
+
+
+//CALL ELEVATOR//
+
+  SEQUENCE RequestElevatorButton
+  
+        FindBestElevator
+           - Witch Elevator are Available 
+           - Available = True or False 
+           - Full = Return to Availlaible 
+           - ElevatorCurrentFloor 
+           - ClosestElevator 
+           - RequestFloorButton
+           = BestElevator
+           
+           //CALL ELEVATOR//           
+        SEQUENCE CallElevator(USING RequestFloor AND Drection) 
+        CALL RequestFloorButtonLight WITH RequestFloor AND Direction RETURNING RequestFloorButton
+        CALL FindBestElevator WITH RequestFloor AND Direction 
+        CALL SendRequest WITH Elevator AND Direction
+        CALL RequestFloorInsideButtonLight WITH Floor AND Direction RETURNING RequestFloor
+        
+        //BUTTON LIGHT ON// 
+        SEQUENCE ResquestFloorButtonLight (USING RequestFloorButton AND Direction)
+        CALL Find WIth RequestFloor and Direction
+        
+         
+           
+            
+        SEQUENCE ButtonActivate
+        SEQUENCE ButtonDesactivate
+        SEQUENCE CallButtons
+        SEQUENCE IdleStatus
+           
+        
+        
+        BestElevator go to RequestFloorButton 
+        DoorsOpen and DoorsClose
+        RequestFloorButton
+        BestElevator go to RequestFloor
+        
+        
+        
+        
+  
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+SEQUENCE RequestElevatorButton (USING Floor AND Direction)
+
+         CALL ButtonCallActivate (Direction, Floor) 
+         CALL FindElevator(Direction, Floor) RETURNING CurrentElevator
+         
+        SET ElevatorCurrentFloor = CurrentElevator ELevatorCurrentFloor
+        
+          CALL RequestOperateElevator(USING CurrentElevator and Floor)
+              
+ END SEQUENCE
+ 
+//FindElevator//
+SEQUENCE FindElevator (USING FLoor AND Direction)
+ 
+         CAll  BestElevator = Elevator(Direction AND Floor)
+               BestFloorDifference = 10 
+        
+         FOR   FloorDifference = COMPUTE ABSOLUTE (ElevatorCurrentFloor - Floor)
+          IF   FloorDifference < BestFloorDifference
+               BestFloorDifference = FloorDifference
+        
+            
+            
+      
+      
+//BUTTONS CALLS//
+             
+
+SEQUENCE : ButtonCallACtivate (USING Floor AND Direction)
+
+          CALL FindButton (Direction and FLoor) RETURNING Button
+           SET  Button Active
+          
+ END SEQUENCE 
+ 
+SEQUENCE : ButtonCallDesactivate (USING Direction AND Floor)
+
+          CALL FindButton (Direction and FLoor) RETURNING Button
+           SET  Button Inactive
+          
+ END SEQUENCE         
+ 
+ 
+
+        
+         
+
+
+
+
+
+
+
+         
+         
+  
+ 
+   
+   
+   
+ 
+  
+
+
+ 
+
+
+
