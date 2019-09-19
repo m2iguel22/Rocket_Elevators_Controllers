@@ -45,12 +45,10 @@ Buttons (Button inside and outside)
         CALL RequestFloorInsideButtonLight WITH Floor AND Direction RETURNING RequestFloor
         
         //BUTTON LIGHT ON// 
-<<<<<<< HEAD
         SEQUENCE ResquestFloorButtonLight (USING RequestFloorButton AND Direction)
-        CALL Find WIth RequestFloor and Direction
-=======
+        CALL Find WIth RequestFloor and Directio
         SEQUENCE ResquestFloorButtonLight (USING RequestFloorButton AND Direction) 
->>>>>>> 6be56b5bd230239ce7eac3de2d9a577e477bffa1
+
         
          
            
