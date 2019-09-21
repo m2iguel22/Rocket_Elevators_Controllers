@@ -1,12 +1,22 @@
-
-#### RESIDENTIALCONTROLLER ####
+SEQUENCE "main"
+  CALL initSystem
+END SEQUENCE 
 
 SEQUENCE Init System USING Battery 
   
-    SET battery status TO Operational OR NotOperation
-    SET column to floor 1 and 1 TO 10
+    SET battery status TO Operational Or NotOperational
+    SET column1 to floor 1 and -6 TO 1 
+    SET column1 elevator to 3
+    SET column2 to Floor 1 and 1 TO 20
+    SET column2 elevator to 3
+    SET column3 to floor 1 and 21 TO 40
+    SET column3 elevator to 3
+    SET column4 to floor 1 and 41 TO 60       
+    SET column4 elevator to 3
+
+    SET columns to column_1, column_2, column_3, column_4
     SET Elevator starting position IS 1
-    SET Elevator status TO Idle
+    SET Elevator status TO IDLE
     SET Elevator Doors TO CLOSE
     
 END SEQUENCE
@@ -31,16 +41,44 @@ SEQUENCE FindBestElevator USING Elevator AND Floor
     CALL RequestElevator WITH Elevator AND  Floor
 END SEQUENCE
 
-SEQUENCE GetBestElevator USING Direction, Floor  
+SEQUENCE ActiveOutsideButton USING Direction AND Floor  
+    SET button Active 
+END SEQUENCE
+
+SEQUENCE DesableOutsideButton USING Direction AND Floor   
+    SET button Desable 
+END SEQUENCE
+
+SEQUENCE FindInsideElevatorButton USING Direction AND Floor
+    FOR EACH Button IN InsideElevatorButton
+        IF Floor = ButtonFloor AND Direction = ButtonDirection THEN
+            RETURN button 
+        END IF
+    END FOR 
+END SEQUENCE 
+
+SEQUENCE GetBestElevator USING Direction, FLOOR  
    CASE Floor
 
-    Floor > 1 AND Floor < 10:
-            RETURN Elevator FROM CALL BestElevator (Column) RETURNING Elevator AND Direction
+        Floor =< 1 AND FLOOR >= -6:
+            RETURN Elevator FROM CALL DispatchElevator (Column1) RETURNING Elevator AND Direction
+     
 
-   END CASE 
-ENDSEQUENCE
+   `    Floor > 1 AND Floor < 20:
+            RETURN Elevator FROM CALL DispatchElevator (Column2, floor) RETURNING Elevator AND Direction
 
-SEQUENCE BestElavator USING Column, Direction AND Floor 
+
+        Floor > 20 AND Floor < 40: 
+            RETURN Elevator FROM CALL DispatchElevator (Column3) RETURNING Elevator AND Direction 
+   
+        
+        Floor > 40 ANd Floor < 60:
+            RETURN Elevator FROM CALL DispatchElevator (Column4) RETURNING Elevator AND Direction
+
+   END CASE
+END SEQUENCE
+
+SEQUENCE DispatchElevator USING Column, Direction AND Floor 
     INIT BestMovingElevator = empty;
     INIT BestMovingTravel = empty;
     INIT BestIdleElevator = empty;
@@ -72,29 +110,15 @@ SEQUENCE BestElavator USING Column, Direction AND Floor
     ELSE CALL AddFloorToElevatorFloorList WITH BestOtherElevator, Floor
 ENDSEQUENCE
 
+
 SEQUENCE GetTravel USING Elevator, Floor AND Direction
     RETURN COMPUTE ASOLUTE( floor - ElevatorCurrentFloor)
 ENDSEQUENCE
 
-SEQUENCE ActiveOutsideButton USING Direction AND Floor  
-    SET button Active 
-END SEQUENCE
-
-SEQUENCE DesableOutsideButton USING Direction AND Floor   
-    SET button Desable 
-END SEQUENCE
-
-SEQUENCE FindInsideElevatorButton USING Direction AND Floor
-    FOR EACH Button IN InsideElevatorButton
-        IF Floor = ButtonFloor AND Direction = ButtonDirection THEN
-            RETURN button 
-        END IF
-    END FOR 
-END SEQUENCE 
 
 SEQUENCE RequestElevator USING Elevator AND RequestedFloor
     ADD RequestedFloor TO ColumnFloorList
-     CALL ColumnSortFloorList WITH ColumnFloorlist AND  Direction RETURNING ColumnSortedFloorList       
+     CALL ColumnSortFloorList WITH ColumnFloorlist AND Direction RETURNING ColumnSortedFloorList       
      SET ColumnFloorList TO ColumnSortedFloorList
      CALL OperateElevator WITH Elevator
 END SEQUENCE
@@ -110,7 +134,7 @@ CALL ShowFloor With ElevatorCurrentFLoor AND Direction
      IF ElevatorFloor IS RequestedFloor THEN 
       CALL OpenDoor WITH Elevator
     ELSE IF ElevatorFloor > RequestedFloor 
-      CALL MoveDown WITH Elevator AND RequestedFloor
+      CALL MoveDown  WITH Elevator AND RequestedFloor
     ELSE IF ElevatorFloor < RequestedFloor
       CALL MoveUp WITH Elevator AND RequestedFloor
     END IF 
@@ -132,11 +156,11 @@ ENDSEQUENCE
 SEQUENCE MovingDown USING RequestElevator AND Elevator         
     REPEAT  
         IF CurrentFloors IS NOT EQUAL TO RequestFloor
-            SET Elevator Status TO Moving Down
-            SET Elevator CurrentFloor EQUAL CurrentFloor - 1 
-        END IF
+         SET Elevator Status TO Moving Down
+          SET CurrentFloor EQUAL CurrentFloor - 1 
+        ENDIF  
     UNTIL CurrentFloor EQUALS RequestFloor
-
+      
 ENDSEQUENCE
 
 
@@ -175,7 +199,7 @@ SEQUENCE Overweight USING Elevator
 END SEQUENCE
 
 SEQUENCE ShowFloor USING Floor AND Direction
-WHILE Battery Status is Operational               
+WHILE Battery Status is Operational              
 SHOW ElevatorFloor ON Board 
 SHOW Direction ON Board
 END WHILE
@@ -191,115 +215,4 @@ SEQUENCE PeekHour USING Elevator
      ELSE 
       CALL RequestElevator (Elevator, 1)
 END SEQUENCE 
-
-
-
-
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-
-
-      
-        
-       
-
-
-
-
-        
-
-          
-           
-
-        
-        
-        
-        
-  
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-            
-   
- 
- 
-
-        
-         
-
-
-
-
-
-
-
-         
-         
-  
- 
-   
-   
-   
- 
-  
-
-
- 
-
-
 
