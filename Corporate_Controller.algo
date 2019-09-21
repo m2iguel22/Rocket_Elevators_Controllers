@@ -80,7 +80,7 @@ END SEQUENCE
 
 SEQUENCE DispatchElevator USING Column, Direction AND Floor 
     INIT BestMovingElevator = empty;
-    INIT BestMovingTravel = empty;
+    INIT BestMovingTravel = empty;q
     INIT BestIdleElevator = empty;
     INIT BestIdleTravel = empty;
     INIT BestOtherElevator = empty;

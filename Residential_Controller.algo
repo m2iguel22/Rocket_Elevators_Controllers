@@ -14,7 +14,7 @@ END SEQUENCE
 SEQUENCE CallElevator USING Direction AND Floor
     CALL ActiveOutsideButton WITH Direction AND Floor
     CALL FindBestElevator WITH Direction, Floor RETURNING Elevator 
-    CALL DispatchElevator WITH Elevator AND Floor  
+    CALL BestElevator WITH Elevator AND Floor  
 END SEQUENCE
 
 SEQUENCE InsideElevatorButton USING Direction, Floor AND RequestElevator
@@ -40,7 +40,7 @@ SEQUENCE GetBestElevator USING Direction, Floor
    END CASE 
 ENDSEQUENCE
 
-SEQUENCE BestElavator USING Column, Direction AND Floor 
+SEQUENCE BestElevator USING Column, Direction AND Floor 
     INIT BestMovingElevator = empty;
     INIT BestMovingTravel = empty;
     INIT BestIdleElevator = empty;
