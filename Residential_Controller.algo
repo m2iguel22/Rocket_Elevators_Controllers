@@ -11,7 +11,7 @@ SEQUENCE Init System USING Battery
     
 END SEQUENCE
 
-SEQUENCE CallElevator USING Direction AND Floor
+SEQUENCE CallButton USING Direction AND Floor
     CALL ActiveOutsideButton WITH Direction AND Floor
     CALL FindBestElevator WITH Direction, Floor RETURNING Elevator 
     CALL BestElevator WITH Elevator AND Floor  
@@ -34,7 +34,7 @@ END SEQUENCE
 SEQUENCE GetBestElevator USING Direction, Floor  
    CASE Floor
 
-    Floor > 1 AND Floor < 10:
+    Floor >= 1 AND Floor <= 10:
             RETURN Elevator FROM CALL BestElevator (Column) RETURNING Elevator AND Direction
 
    END CASE 

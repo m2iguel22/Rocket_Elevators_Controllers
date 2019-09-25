@@ -1,6 +1,5 @@
 SEQUENCE "main"
-  CALL initSystem
-END SEQUENCE 
+  CALL initS
 
 SEQUENCE Init System USING Battery 
   
@@ -80,7 +79,7 @@ END SEQUENCE
 
 SEQUENCE DispatchElevator USING Column, Direction AND Floor 
     INIT BestMovingElevator = empty;
-    INIT BestMovingTravel = empty;q
+    INIT BestMovingTravel = empty;
     INIT BestIdleElevator = empty;
     INIT BestIdleTravel = empty;
     INIT BestOtherElevator = empty;
@@ -94,7 +93,7 @@ SEQUENCE DispatchElevator USING Column, Direction AND Floor
         SET travel EQUAL CALL GetTravel WITH Elevator, Floor
         IF BestMovingTravel IS empty OR Travel < BestMovingTravel AND ElevatorDirection IS Direction  THEN
             SET BestMovingTravels EQUAL travel
-            SET BestMovingElevator EQUAL Elevator
+            SET BestMovingElevator EQUAL Eelevator
         ELSE IF  Elevator is Idle AND ( BestIdleTravel IS empty OR Travel < BestIdleTravel )THEN
             SET BestIdleTravels EQUAL travel
             SET BestIdleElevator EQUAL Elevator
@@ -178,7 +177,7 @@ SEQUENCE CloseDoor USING Elevator
     THEN
         CALL RequestElevator                                    
     ELSE 
-        CALL OpenDoor WITH Elevator
+        CALL OpenDoor WITH Elevatorwq
     END IF
 END SEQUENCE
 
