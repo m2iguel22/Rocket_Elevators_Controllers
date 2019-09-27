@@ -31,14 +31,14 @@ SEQUENCE FindBestElevator USING Elevator AND Floor
     CALL RequestElevator WITH Elevator AND  Floor
 END SEQUENCE
 
-SEQUENCE GetBestElevator USING Direction, Floor  
-   CASE Floor
+// SEQUENCE GetBestElevator USING Direction, Floor  
+//    CASE Floor
 
-    Floor >= 1 AND Floor <= 10:
-            RETURN Elevator FROM CALL BestElevator (Column) RETURNING Elevator AND Direction
+//     Floor >= 1 AND Floor <= 10:
+//             RETURN Elevator FROM CALL BestElevator (Column) RETURNING Elevator AND Direction
 
-   END CASE 
-ENDSEQUENCE
+//    END CASE 
+// ENDSEQUENCE
 
 SEQUENCE BestElevator USING Column, Direction AND Floor 
     INIT BestMovingElevator = empty;
@@ -55,7 +55,7 @@ SEQUENCE BestElevator USING Column, Direction AND Floor
     FOR EACH ELEVATOR IN COLUMN
         SET travel EQUAL CALL GetTravel WITH Elevator, Floor
         IF BestMovingTravel IS empty OR Travel < BestMovingTravel AND ElevatorDirection IS Direction  THEN
-            SET BestMovingTravels EQUAL travel
+            SET BestMovingTravel EQUAL travel
             SET BestMovingElevator EQUAL Elevator
         ELSE IF  Elevator is Idle AND ( BestIdleTravel IS empty OR Travel < BestIdleTravel )THEN
             SET BestIdleTravels EQUAL travel
