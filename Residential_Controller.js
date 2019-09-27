@@ -77,12 +77,12 @@ class Elevator {
     }
 
 
-    
+
     //    addFloorList(floor){
-        //        floorList = this.floorList.push(floor)
-        //        console.log("addFloorList" , this.floorList)
-        //    }
-        moveDown(floorNumber) {
+    //        floorList = this.floorList.push(floor)
+    //        console.log("addFloorList" , this.floorList)
+    //    }
+    moveDown(floorNumber) {
         while (floorNumber != this.currentFloor) {
             debugger
             console.log('the elevator number ' + this.id + ' is going down!')
@@ -91,12 +91,12 @@ class Elevator {
             this.currentFloor = this.currentFloor - 1
         }
         console.log('the elevator number ' + this.id + ' is going down!')
-        
+
         console.log('the elevator number ' + this.id + ' is at floor number ' + this.currentFloor)
         console.log(this.currentFloor, "YEEEAAAHHHH");
         this.openDoor()
     }
-    
+
     moveUp() {
         while (floorNumber != this.currentFloor) {
             debugger
@@ -106,7 +106,7 @@ class Elevator {
             this.currentFloor = this.currentFloor + 1
         }
         console.log('the elevator number ' + this.id + ' is going up!')
-        
+
         console.log('the elevator number ' + this.id + ' is at floor number ' + this.currentFloor)
         console.log(this.currentFloor, "YEEEAAAHHHH");
         this.openDoor()
@@ -157,11 +157,11 @@ class Column {
     }
 
     initOutsideButtons(nbOfFloor) {
-        
+
         let buttons = []
         let i = 1
         while (i <= nbOfFloor) {
-            
+
             if (i != nbOfFloor) buttons.push({
                 floor: i,
                 direction: "UP",
