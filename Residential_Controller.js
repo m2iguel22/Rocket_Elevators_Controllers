@@ -25,8 +25,6 @@ class Elevator {
 
             if (floor == button.floor) {
 
-            //  InsideButton.toggleActive(current_button)
-
             }
         }
 
@@ -118,12 +116,6 @@ class InsideButton {
         this.floor = floor
         this.active = false;
     }
-
-    toggleActive() {
-        this.active = !this.active
-    }
-
-
 }
 class Column {
 

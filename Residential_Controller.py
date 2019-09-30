@@ -1,198 +1,208 @@
-import time 
-
-
-
-class Elevator():
-
+class Elevator:
+    
     def __init__(self, elevatorName, nbOfFloor):
         self.elevatorName = elevatorName
         self.nbOfFloor = nbOfFloor
         self.door = "closed"
         self.currentFloor = 1 
         self.status = "idle"
-        self.direction = None
+        self.direction = "up"
         self.floorList = []
         self.insideButtonList = []
-
-        for i in range (1,self.nbOfFloor):
+        
+        for i in range (0,self.nbOfFloor):
             self.insideButtonList.append(InsideButton(i))
 
+    def requestFloor(self, floor):
+        self.addFloorToFloorList(floor)    
+        self.moveToRequestedFloor(floor)
+            
+    def addFloorToFloorList(self, floor):
+        self.floorList.append(floor)
+        # floorNumber = floorList.append()
 
-    def requestFloor(self, floor ):
-        self.addFloorToFloorList(floor)       
-        self.moveToRequestedFloor()
-             
-
-    def moveToRequestedFloor(self,):
+    def moveToRequestedFloor(self, floor):
         floorList = self.floorList
-        floorNumber = floorList.append()
-
-        if (self.currentFloor > floorNumber):
-            self.moveDown(floorNumber)
-        elif(self.currentFloor < floorNumber):
-            self.moveUp(floorNumber)
-        else:
-            self.openDoor()
-        print("hello")
-
-    def moveDown(self,floorNumber):
-
-        while floorNumber != self.currentFloor:
-            self.currentFloor = self.currentFloor -1  
-            print("the elevator number" + self.elevatorName + "is going down")  
-            print("the elevator number" + self.elevatorName + "is at floor number" + self.currentFloor)  
-
-    def moveUp(self, floorNumber):
-
-        while floorNumber != self.currentFloor: 
-            self.currentFloor = self.currentFloor + 1 
-
-            print("the elevator number" + self.elevatorName + " is going up!")
-            print("the elevator number " + self.elevatorName + ' is at floor number ' + self.currentFloor)
-            print('the elevator number ' + self.elevatorName + ' is going up!')
-            print('the elevator number ' + self.elevatorName + ' is at floor number ' + self.currentFloor)
+        floorNumber = floorList.pop()
+    # print("salut")
+        if self.currentFloor == floorNumber:
             self.openDoor()
             self.closeDoor()
-    def addFloorToFloorList(self, floor):
-            self.floorList.append(floor)
-
-    def openDoor(self):
-            self.door = "opened"
-            print("open door")
-            print("door state: " + self.door)
-
-    def closeDoor(self):
-            self.door = "closed"
-            print("close door")
-            print("door state: " + self.door)
+        elif self.currentFloor > floorNumber:
+            self.moveDown(floorNumber)
+            self.closeDoor()
+        elif self.currentFloor < floorNumber:
+            self.moveUp(floorNumber)
+            self.closeDoor
 
     
 
-class InsideButton():
 
-    def _init_(self, floor):
-            self.floor = floor
-            self.active = None
+
+    def moveDown(self,floorNumber):  
+        while floorNumber != self.currentFloor:
+            self.currentFloor = self.currentFloor -1  
+            print("the elevator number" + str(self.elevatorName) + " is going down")
+            print("the elevator number" + str(self.elevatorName) + " is at floor number" + str(self.currentFloor))
+        self.openDoor()
+        self.closeDoor() 
+
+
+
+
+    def moveUp(self, floorNumber):
+    
+        while floorNumber != self.currentFloor: 
+            self.currentFloor = self.currentFloor + 1 
+
+            print("the elevator number" + str(self.elevatorName) + " is going up!")
+            print("the elevator number" + str(self.elevatorName) + ' is at floor number ' + str(self.currentFloor))
+         
+        self.openDoor()
+        self.closeDoor()
+
+    def openDoor(self):
+        self.door = "opened"
+        print("open door")
+
+
+    def closeDoor(self):
+        self.door = "closed"
+        print("close door")
+      
+
+    
+
+class InsideButton:
+
+    def __init__(self, floor):
+        self.floor = floor
+        self.active = False
 
     def toggleActive(self):
-            self.active = not self.active
+        self.active = not self.active
 
-class Column():
 
-    def _init_(self, nbOfFloor, nbOfElevator):
+
+
+
+
+class Column:
+
+    def __init__(self, nbOfFloor, nbOfElevator):
             self.state = "Active"
             self.elevatorList = self.initElevator(nbOfElevator, nbOfFloor)
             self.outsideButtonsList = self.initOutsideButtons(nbOfFloor)
 
     def initElevator(self, nbOfElevator, nbOfFloor):
         elevator = []
+        for i in range (0, nbOfElevator):
+            elevator.append(Elevator(i, nbOfFloor))
 
-        for i in range (1, nbOfElevator):
-            elevator.append(nbOfFloor(i))
+        return elevator
 
-            return elevator
-    def initOutsideButtons(self, nbOfFloor) :
+    def initOutsideButtons(self, nbOfFloor):
         buttons = []
         i = 1
         while i <= nbOfFloor: 
             if i != nbOfFloor: 
                 buttons.append({
                     "floor" :i,
-                    "direction": "UP",
-                    "requestElevator": self.requestElevator(i, "UP"),
+                    "direction": "up",
+                    
                     "active": False
                 })
             elif i != 1:
                 buttons.append({
                     'floor': i,
-                    'direction': "DOWN",
-                    'requestElevator': self.requestElevator(i, "DOWN"),
+                    'direction': "down",
+                    
                     'active': False
                 })
             i = i + 1
 
         return buttons
 
-
     def requestElevator(self, requestedFloor, direction):
-        bestElevator = self.findbestElevator(requestedFloor, direction)
+        bestElevator = self.findbestElevator(requestedFloor, direction)        
         bestElevator.addFloorToFloorList(requestedFloor)
-        bestElevator.moveToRequestedFloor()
-       
+        bestElevator.moveToRequestedFloor(InsideButton)      
         return bestElevator
-     
 
+        
     def findbestElevator(self, requestedFloor, direction):
         elevator = self.bestElevator(requestedFloor, direction)
-
         return elevator
 
-
     def bestElevator(self, requestedFloor, direction):
-        print("bestElevator")
-        print("direction", direction)
-        print("floor", requestedFloor)
-
         bestMovingElevator = None
-        bestMovingTravel = None
+        bestMovingTravel = 11111111
         bestIdleElevator = None
-        bestIdleTravel = None
+        bestIdleTravel = 11111111   
         bestOtherElevator = None
-        bestOtherTravel = None
-
-
+        bestOtherTravel = 111111111
+  
         for elevator in self.elevatorList:
-
             travel = self.getTravel(elevator, requestedFloor)
-            print("current elevator id", elevator.id)
-            print("current elevator direction", elevator.direction)
-
-            if elevator.direction == "moving" and bestMovingTravel == None or travel <= bestMovingTravel and elevator.direction == direction : 
-                if elevator.direction == "down" and elevator.currentFloor > requestedFloor or elevator.direction and elevator.currentFloor < requestedFloor : 
+            
+            if elevator.status == "moving" and travel <= bestMovingTravel and elevator.direction == direction: 
+               
+                if (elevator.direction == "down" and elevator.currentFloor > requestedFloor) or (elevator.direction == "up" and elevator.currentFloor < requestedFloor):  
                     bestMovingTravel = travel 
                     bestMovingElevator = elevator 
-                    if bestOtherTravel == None or travel <= bestOtherTravel:
-                        bestOtherTravel = travel
-                        bestOtherElevator = elevator 
 
-                        if elevator.status == "idle" and bestIdleTravel == None or travel <= bestIdleTravel:
-                           bestIdleTravel = travel  
-                           bestIdleElevator = elevator
+            
+            elif elevator.status == "idle" and travel <= bestIdleTravel:                           
+                bestIdleTravel = travel  
+                bestIdleElevator = elevator
 
-                           if bestMovingElevator:
-                               return bestMovingElevator
-                           elif bestIdleElevator:
-                               return bestIdleElevator
-                           elif bestOtherElevator:
-                               return bestOtherElevator
+            elif travel <= bestOtherTravel: 
+                bestOtherTravel = travel
+                bestOtherElevator = elevator 
 
-       
+        if bestMovingElevator != None:
+            print("--------------------------1-------------------------------------")
+            return bestMovingElevator
+        elif bestIdleElevator != None:
+            print("------------------------------------2---------------------------")
+            return bestIdleElevator
+        elif bestOtherElevator!= None:
+            print("------------------------------------3---------------------------")
+            return bestOtherElevator
 
     def getTravel(self, elevator, requestedFloor):
-
+        # print(str(abs(elevator.currentFloor - requestedFloor)))
         return abs(elevator.currentFloor - requestedFloor)
 
     def requestFloor(self, elevator, floor):
         elevator.requestFloor(floor)
-        
-  
+
     def chosenElevator(self, chosenElevator):
-
         print("==============")
-         
 
-        column_test_1 = Column(10, 2)
 
-        column_test_1.elevatorList[0].currentFloor = 9
-        column_test_1.elevatorList[0].status = "moving"
-        column_test_1.elevatorList[0].direction = "up"
-        column_test_1.elevatorList[1].currentFloor = 4
-        column_test_1.elevatorList[1].status = "Idle"
-        column_test_1.elevatorList[1].direction = "down"
+column_test_1 = Column(10, 2)
 
-        chosenElevator = column_test_1.requestElevator(8, "up")
-               
+column_test_1.elevatorList[0].currentFloor = 7
+column_test_1.elevatorList[0].status = "moving"
+column_test_1.elevatorList[0].direction = "up"
 
-         
+column_test_1.elevatorList[1].currentFloor = 2
+column_test_1.elevatorList[1].status = "Idle"
+column_test_1.elevatorList[1].direction = "up"
 
-                
+elevator = column_test_1.requestElevator(10, "down")
+elevator.requestFloor(1)
+
+
+
+
+
+# print("elevator 1 = " + str(column_test_1.elevatorList[0])) 
+
+
+print("elevator 2 = " + str(column_test_1.elevatorList[1].currentFloor)) 
+
+# chosenElevator = column_test_1.requestElevator(8, "up")
+
+# requestFloor(chosenElevator, 1)        
