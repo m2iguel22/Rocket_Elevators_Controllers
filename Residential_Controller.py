@@ -30,24 +30,19 @@ class Elevator:
             self.closeDoor()
         elif self.currentFloor > floorNumber:
             self.moveDown(floorNumber)
+            self.openDoor()
             self.closeDoor()
         elif self.currentFloor < floorNumber:
             self.moveUp(floorNumber)
-            self.closeDoor
+            self.openDoor()
+            self.closeDoor()
 
     
-
-
-
     def moveDown(self,floorNumber):  
         while floorNumber != self.currentFloor:
             self.currentFloor = self.currentFloor -1  
             print("the elevator number" + str(self.elevatorName) + " is going down")
             print("the elevator number" + str(self.elevatorName) + " is at floor number" + str(self.currentFloor))
-        self.openDoor()
-        self.closeDoor() 
-
-
 
 
     def moveUp(self, floorNumber):
@@ -57,9 +52,6 @@ class Elevator:
 
             print("the elevator number" + str(self.elevatorName) + " is going up!")
             print("the elevator number" + str(self.elevatorName) + ' is at floor number ' + str(self.currentFloor))
-         
-        self.openDoor()
-        self.closeDoor()
 
     def openDoor(self):
         self.door = "opened"
@@ -69,6 +61,9 @@ class Elevator:
     def closeDoor(self):
         self.door = "closed"
         print("close door")
+        self.status = "idle"
+        self.direction = None
+
       
 
     
@@ -125,8 +120,7 @@ class Column:
 
     def requestElevator(self, requestedFloor, direction):
         bestElevator = self.findbestElevator(requestedFloor, direction)        
-        bestElevator.addFloorToFloorList(requestedFloor)
-        bestElevator.moveToRequestedFloor(InsideButton)      
+        bestElevator.requestFloor(requestedFloor)
         return bestElevator
 
         
@@ -136,23 +130,24 @@ class Column:
 
     def bestElevator(self, requestedFloor, direction):
         bestMovingElevator = None
-        bestMovingTravel = 11111111
         bestIdleElevator = None
-        bestIdleTravel = 11111111   
         bestOtherElevator = None
-        bestOtherTravel = 111111111
-  
+        bestMovingTravel = 11111111
+        bestOtherTravel = 11111111
+        bestIdleTravel = 11111111
+
+
         for elevator in self.elevatorList:
             travel = self.getTravel(elevator, requestedFloor)
             
-            if elevator.status == "moving" and travel <= bestMovingTravel and elevator.direction == direction: 
+            if elevator.status == 'moving' and travel <= bestMovingTravel and elevator.direction == direction: 
                
-                if (elevator.direction == "down" and elevator.currentFloor > requestedFloor) or (elevator.direction == "up" and elevator.currentFloor < requestedFloor):  
+                if (elevator.direction == 'down' and elevator.currentFloor > requestedFloor) or (elevator.direction == 'up' and elevator.currentFloor <= requestedFloor):  
                     bestMovingTravel = travel 
                     bestMovingElevator = elevator 
 
             
-            elif elevator.status == "idle" and travel <= bestIdleTravel:                           
+            elif elevator.status == 'idle' and travel <= bestIdleTravel:                           
                 bestIdleTravel = travel  
                 bestIdleElevator = elevator
 
@@ -183,17 +178,26 @@ class Column:
 
 column_test_1 = Column(10, 2)
 
-column_test_1.elevatorList[0].currentFloor = 7
-column_test_1.elevatorList[0].status = "moving"
-column_test_1.elevatorList[0].direction = "up"
+column_test_1.elevatorList[0].currentFloor = 10
+column_test_1.elevatorList[0].status = "idle"
+column_test_1.elevatorList[0].direction = None
 
-column_test_1.elevatorList[1].currentFloor = 2
-column_test_1.elevatorList[1].status = "Idle"
+column_test_1.elevatorList[1].currentFloor = 3
+column_test_1.elevatorList[1].status = "moving"
 column_test_1.elevatorList[1].direction = "up"
 
-elevator = column_test_1.requestElevator(10, "down")
-elevator.requestFloor(1)
+elevator1 = column_test_1.elevatorList[1]
+print("elevator2 :" + str(elevator1.status))
 
+elevator0 = column_test_1.requestElevator(3, "down")
+elevator0.requestFloor(2)
+print("elevator1 :" + str(elevator0.status))
+
+elevator1.requestFloor(6)
+
+elevator3 = column_test_1.requestElevator(10, "down")
+elevator3.requestFloor(3)
+print("elevator2 :" + str(elevator1.status))
 
 
 

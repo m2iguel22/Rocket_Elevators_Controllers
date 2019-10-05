@@ -1,0 +1,11 @@
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\obj\Debug\netcoreapp3.0\Corporate_Controller.cs.csprojAssemblyReference.cache
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\obj\Debug\netcoreapp3.0\Corporate_Controller.cs.AssemblyInfoInputs.cache
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\obj\Debug\netcoreapp3.0\Corporate_Controller.cs.AssemblyInfo.cs
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.exe
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.deps.json
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.runtimeconfig.json
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.runtimeconfig.dev.json
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.dll
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\bin\Debug\netcoreapp3.0\Corporate_Controller.cs.pdb
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\obj\Debug\netcoreapp3.0\Corporate_Controller.cs.dll
+C:\Users\codeboxx\Documents\Project\Rocket_Elevators_Controllers\Corporate_Controller.cs\Corporate_Controller.cs\obj\Debug\netcoreapp3.0\Corporate_Controller.cs.pdb

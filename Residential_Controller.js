@@ -226,6 +226,8 @@ class Column {
                     bestOtherElevator = elevator
                 }
 
+
+
             } else if (elevator.status == "Idle" && (bestIdleTravel == null || travel <= bestIdleTravel)) {
                 // console.log("2");
                 bestIdleTravel = travel
@@ -245,8 +247,8 @@ class Column {
 
     }
 
-    getTravel(elevator, requestedfloor) {
-        return Math.abs(elevator.currentFloor - requestedfloor)
+    getTravel(elevator, requestedFloor) {
+        return Math.abs(elevator.currentFloor - requestedFloor)
     }
 
 } // fin 
